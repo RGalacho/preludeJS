@@ -8,7 +8,7 @@ que proporcionar las funciones de orden superior sobre listas
 (vectores) más habituales definidas en el [preludio
 Haskell](http://www.haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html#g:11)
 en *Javascript "Vanilla"*, en aquellos casos en los que no es posible
-incluir nuestro *framework* más habitual (*jQuery*, *Prototype*,
+incluir nuestro *framework* más habitual ( *jQuery*, *Prototype*,
 *MochiKit*, etc) o estamos realizando un test rápido y somos demasiado
 perezosos para incluir - o simplemente no queremos incluir - todo un
 marco de trabajo completo para probar un concepto en una sencilla
@@ -16,8 +16,8 @@ página de test.
 
 La intención es que la libería sea compatible con múltiples
 navegadores. Hasta ahora se ha testeado en *Google Chrome Versión
-27.0.1453.47 beta* (*Linux*), *Internet Explorer 7*, *Internet
-Explorer 8*, *Firefox 23.1* (*Windows*).
+27.0.1453.47 beta* ( *Linux* ), *Internet Explorer 7*, *Internet
+Explorer 8*, *Firefox 23.1* ( *Windows* ).
 
 ---
 
