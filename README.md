@@ -1,4 +1,4 @@
-preludeJS
+PreludeJS
 =========
 
 Adaptación de las funciones sobre listas más habituales del preludio Haskell.
@@ -21,7 +21,7 @@ Explorer 8*, *Firefox 23.1* ( *Windows* ).
 
 ---
 
-## Utilización
+### Utilización
 Para utilizarla, tan sólo es necesario incluir un elemento *script* en
 aquella/s página/s *HTML* en la que queramos disponer de la misma.
 
