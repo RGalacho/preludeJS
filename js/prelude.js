@@ -7,7 +7,7 @@
  * - La sobreescritura de concat para listas de listas ha sido renombrada como flatten.
  * - La función break ha sido renombrada como unSpan.
  *
- * v0.1 Copyright ® 2013 <rgalacho@gmail.com>
+ * v0.2 Copyright ® 2013 <rgalacho@gmail.com>
  **/
 
 /**
@@ -954,6 +954,29 @@ function zip(xs, ys) {
 }
 
 /**
+ * zipN(xs, ys, ...) retorna el vector formado por vectores n-tupla
+ * con un elemento de cada vector recibido. Si alguno de los vectores
+ * es más pequeño, el resto de elementos de los vectores mayores se
+ * descartan.
+ * 
+ * zipN([1, 2, 3], "abcd", [5, 6, 7, 8, 9]) == [[1, 'a', 5], [2, 'b', 6], [3, 'c', 7]]
+ *
+ * @param args Vectores
+ * @return Vector de vectores n-tupla con los elementos de los
+ *         vectores recibidos
+ *
+ * @since 0.2
+ */
+function zipN() {
+    var args = Array.prototype.slice.apply(arguments);
+    var minlen = foldl(function (ac, it) { return Math.min(ac, it.length); }, Infinity, args);
+    return Array.apply(null, Array(minlen)).map(function(_, i) {
+        return args.map(function (a) { return a[i] });
+    });
+}
+
+
+/**
  * zip3(xs, ys, zs) retorna el vector formado por vectores tripleta
  * con un elemento de xs, un elemento de ys y otro de zs. Si alguno de
  * los vectores de entrada es más pequeño, el resto de elementos de
@@ -974,7 +997,7 @@ function zip3(xs, ys, zs) {
 }
 
 /**
- * zipWith(f, xs, ys) generaliza zip compriendo xs e ys con la función
+ * zipWith(f, xs, ys) generaliza zip comprimiendo xs e ys con la función
  * f en lugar de contruir pares. Si alguno de los vectores de entrada
  * es más pequeño, el resto de elementos del vector mayor se descartan.
  *
