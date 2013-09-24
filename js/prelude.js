@@ -682,9 +682,9 @@ function generator(f, n) {
         result = n;
 
     return function () {
-        result = f.apply(null, [result])
+        result = f.apply(null, [result]);
         return result;
-    }
+    };
 }
 
 /**
@@ -971,7 +971,7 @@ function zipN() {
     var args = Array.prototype.slice.apply(arguments);
     var minlen = foldl(function (ac, it) { return Math.min(ac, it.length); }, Infinity, args);
     return Array.apply(null, Array(minlen)).map(function(_, i) {
-        return args.map(function (a) { return a[i] });
+        return args.map(function (a) { return a[i]; });
     });
 }
 
