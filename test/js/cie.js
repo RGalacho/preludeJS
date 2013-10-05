@@ -3,23 +3,6 @@
 
  NOTA: En la medida de lo posible NO utilizar código con dependencias de alguna librería externa.
 
- TODO: → Añadir un pequeño div con opciones en la zona de consola: 
-         → Un pequeño botón para maximizar/restaurar la zona de consola,
-           por si se está trabajando únicamente con la consola y el
-           iframe estorba.
-         → También podría estudiarse el implementar a mano alguna forma de tiradores de forma 
-           que se puedan redimensionar las secciones
-       → Probar la opción de diseño del payo (simulando una consola Firebug):
-          _______
-         |   |   | <-- Zona frame html
-         |___|___|
-         |_____|_|
-           |    |
-           |  Línea de comandos y área de edición
-         Output consola
-
-       → Permitir definir los estilos de cada mensaje en las opciones del constructor
-
  R. Galacho v1.0.1 © 22-04-2010
  ***/
 
