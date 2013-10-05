@@ -1,0 +1,341 @@
+<!doctype html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Página de test de PreludeJS</title>
+  <link href='http://fonts.googleapis.com/css?family=Orbitron:500' rel='stylesheet' type='text/css'>
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/pure-min.css">
+  <link rel="stylesheet" href="css/pure-skin-prelude.css">
+  <script src="https://rawgithub.com/RGalacho/preludeJS/master/src/prelude.js" type="text/javascript"></script>
+  <script type="text/javascript" src="js/benchmark.js"></script>
+  <script type="text/javascript" src="js/chart-min.js"></script>
+  <script type="text/javascript">
+    // Sobreescritura de Array.toString para permitir la impresión de
+    // vectores de vectores
+    Array.prototype.toStringOriginal = Array.prototype.toString;
+    Array.prototype.toString = function () {
+        var str = function (accum, x) {
+            if (x instanceof Array)
+                return accum += "[" + x.toStringOriginal() + "]" + ",";
+
+            return accum += x.toString() + ",";
+        }
+        return init(foldl(str, "", this));
+    };
+
+    var Ejemplo = function(idSeccion, funcion, parametros) {
+                      this.idSeccion = idSeccion;
+                      this.funcion = funcion;
+                      this.parametros = parametros;
+                  }; 
+
+    Ejemplo.prototype.ejecutar = function () {
+        return this.funcion.apply(null, this.parametros);
+    };
+
+    Ejemplo.prototype.mostrarEjemplo = function () {
+      var nodo = document.getElementById(this.idSeccion);
+
+      nodo.innerHTML = this.ejecutar().toString();
+    }
+  </script>
+</head>
+<body>
+
+  <div class="pure-g-r pure-skin-mine" id="layout">
+    <div class="pure-u-1" id="main">
+      <div class="header">
+        <header>
+          <h1 class="especial">PreludeJS</h1>
+          <h2 class="">Test de rendimiento</h2>
+        </header>
+      </div>
+
+      <div class="content ejemplos">
+        <div class="pure-u-1">
+          <h3>Operaciones sobre listas</h3>
+
+          <p>
+            map(function (it) { return it + 1; }, [1, 2, 3]) == [<span id="ejemploMap"></span>]
+          </p>
+          <p>
+            concat(['a', 'b', 'c'], [1, 2, 3]) == [<span id="ejemploConcat"></span>]
+          </p>
+          <p>
+            filter(function (e) { return e % 2 == 0; }, [1, 2, 3, 4]) == [<span id="ejemploFilter"></span>]
+          </p>
+          <p>
+            head([1, 2, 3, 4]) == [<span id="ejemploHead"></span>]
+          </p>
+          <p>
+            last([1, 2, 3, 4]) == [<span id="ejemploLast"></span>]
+          </p>
+          <p>
+            tail([1, 2, 3, 4]) == [<span id="ejemploTail"></span>]
+          </p>
+          <p>
+            init([1, 2, 3, 4]) == [<span id="ejemploInit"></span>]
+          </p>
+          <p>
+            length([1, 2, 3, 4]) == [<span id="ejemploLength"></span>]
+          </p>
+          <p>
+            reverse([1, 2, 3, 4]) == [<span id="ejemploReverse"></span>]
+          </p>
+
+          <h3>Plegados</h3>
+
+          <p>
+            foldl(function (ac, it) { return ac + it;}, 0, [1, 2, 3, 4]) == <span id="ejemploFoldl"></span>
+          </p>
+          <p>
+            foldl1(function (ac, it) { return ac + it;}, [1, 2, 3, 4]) == <span id="ejemploFoldl1"></span>
+          </p>
+          <p>
+            foldr(function (ac, it) { return ac + it;}, 0, [1, 2, 3, 4]) == <span id="ejemploFoldr"></span>
+          </p>
+          <p>
+            foldr1(function (ac, it) { return ac + it;}, [1, 2, 3, 4]) == <span id="ejemploFoldr1"></span>
+          </p>
+
+          <h3>Plegados especiales</h3>
+
+          <p>
+            and([true, false, true, true]) == <span id="ejemploAnd"></span>
+          </p>
+          <p>
+            or([true, false, true, true]) == <span id="ejemploOr"></span>
+          </p>
+          <p>
+            any(function (e) { return e % 2 == 0; }, [1, 2, 3, 5]) == <span id="ejemploAny"></span>
+          </p>
+          <p>
+            all(function (e) { return e % 2 == 0; }, [1, 3, 5, 7]) == <span id="ejemploAll"></span>
+          </p>
+          <p>
+            sum([1, 3, 5, 7]) == <span id="ejemploSum"></span>
+          </p>
+          <p>
+            product([1, 3, 5, 7]) == <span id="ejemploProduct"></span>
+          </p>
+          <p>
+            flatten([[1, 2],  [3, 4], [5, 6]]) == [<span id="ejemploFlatten"></span>]
+          </p>
+          <p>
+            maximum([1, 2, 3, 4]) == <span id="ejemploMaximum"></span>
+          </p>
+          <p>
+            minimum([1, 2, 3, 4]) == <span id="ejemploMinimum"></span>
+          </p>
+
+          <h3>Construyendo vectores</h3>
+          <p>
+            scanl(function (ac, it) { return ac + it; }, 0, [1, 2, 3, 4]) == [<span id="ejemploScanl"></span>]
+          </p>
+          <p>
+            scanl1(function (ac, it) { return ac + it; }, [1, 2, 3, 4]) == [<span id="ejemploScanl1"></span>]
+          </p>
+          <p>
+            scanr(function (ac, it) { return ac + it; }, 0, [1, 2, 3, 4]) == [<span id="ejemploScanr"></span>]
+          </p>
+          <p>
+            scanr1(function (ac, it) { return ac + it; }, [1, 2, 3, 4]) == [<span id="ejemploScanr1"></span>]
+          </p>
+          <p>
+            repeat('a') == [<span id="ejemploRepeat"></span>...]
+          </p>
+          <p>
+            replicate(10, 'a') == [<span id="ejemploReplicate"></span>]
+          </p>
+          <p>
+            cycle([1, 2, 3]) == [<span id="ejemploCycle"></span>...]
+          </p>
+
+          <h3>Sublistas</h3>
+          <p>
+            take(10, cycle("abc")) == [<span id="ejemploTake"></span>]
+          </p>
+          <p>
+            drop(3, [1, 2, 3, 4, 5]) == [<span id="ejemploDrop"></span>]
+          </p>
+          <p>
+            splitAt(3, [1, 2, 3, 4, 5]) == [<span id="ejemploSplitAt"></span>]
+          </p>
+          <p>
+            takeWhile(function (it) { return it < 4; }, [1, 2, 3, 4, 5]) == [<span id="ejemploTakeWhile"></span>]
+                                                  </p>
+          <p>
+            dropWhile(function (it) { return it <= 2; }, [1, 2, 3, 4, 5]) == [<span id="ejemploDropWhile"></span>]
+                                                   </p>
+          <p>
+            span(function (it) { return it <= 2; }, [1, 2, 3, 4, 5]) == [<span id="ejemploSpan"></span>]
+                                              </p>
+          <p>
+            unSpan(function (it) { return it > 2; }, [1, 2, 3, 4, 5]) == [<span id="ejemploUnSpan"></span>]
+          </p>
+
+          <h3>Buscando en vectores</h3>
+          <p>
+            elem(0, [1, 2, 3, 4, 5]) == [<span id="ejemploElem"></span>]
+          </p>
+          <p>
+            notElem(0, [1, 2, 3, 4, 5]) == [<span id="ejemploNotElem"></span>]
+          </p>
+
+          <h3>Comprimiendo y descomprimiendo vectores</h3>
+          <p>
+            zip("abcd", [1, 2, 3]) == [<span id="ejemploZip"></span>]
+          </p>
+          <p>
+            zipN([1, 2, 3], "abcd", [5, 6, 7, 8 ,9]) == [<span id="ejemploZipN"></span>]
+          </p>
+          <p>
+            zip3("abcd", [1, 2, 3], "xyztu") == [<span id="ejemploZip3"></span>]
+          </p>
+          <p>
+            zipWith(function (x, y) { return x + y; }, [1, 2, 3], [4, 5, 6]) == [<span id="ejemploZipWith"></span>]
+          </p>
+          <p>
+            zipWith3(function (x, y, z) { return x + y + z; }, [1, 2, 3], [4, 5, 6], "abcdef") == [<span id="ejemploZipWith3"></span>]
+          </p>
+          <p>
+            zipWithN(function (x, y, z, u) { return ((x + y) * z) + u; }, [1, 2, 3], [4, 5, 6], [7, 8, 9], "abcdef") == [<span id="ejemploZipWithN"></span>]
+          </p>
+          <p>
+            zipWithN2(function (x, y, z, u) { return ((x + y) * z) + u; }, [1, 2, 3], [4, 5, 6], [7, 8, 9], "abcdef") == [<span id="ejemploZipWithN2"></span>]
+          </p>
+          <p>
+            unzip([['a', 1],['b', 2],['c', 3]]) == [<span id="ejemploUnzip"></span>]
+          </p>
+          <p>
+            unzip3([['a', 1, 'x'],['b', 2, 'y'],['c', 3, 'z']]) == [<span id="ejemploUnzip3"></span>]
+          </p>
+
+          <h3>Otros juegos</h3>
+
+          <p>
+            map(length, ["a", "bc", "def"]) == [<span id="ejemploMap2"></span>]
+          </p>
+
+          <p>
+            foldl(function (ac) { return ac + 1;}, 0, [1, 2, 3, 4]) == <span id="ejemploFoldl2"></span>
+          </p>
+
+          <p>
+            foldr1(function (ac, it) { return ac + it; }, "abcde") == &quot;<span id="ejemploFoldr12"></span>&quot;
+          </p>
+
+          <a href="../global.html">Documentación</a>
+        </div>
+
+        <div class="pure-g-r">
+          <div class="pure-u-1-2">
+            <h3>Estadísticas</h3>
+            <div>
+              <span id="seccionSpinner">Calculando estadísticas... <img src="img/spinner.gif" /></span>
+              <ul id="informeBenchmark">
+              </ul>
+            </div>
+          </div>
+          <div class="pure-u-1-2">
+            <canvas id="graficoBenchmark" width="600" height="600"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var ejemplos = [new Ejemplo("ejemploMap", map, [function (it) { return it + 1; }, [1, 2, 3]]),
+                    new Ejemplo("ejemploConcat", concat, [['a', 'b', 'c'], [1,2,3]]),
+                    new Ejemplo("ejemploFilter", filter, [function (e) { return e % 2 == 0; }, [1, 2, 3, 4]]),
+                    new Ejemplo("ejemploHead", head, [[1, 2, 3, 4]]),
+                    new Ejemplo("ejemploLast", last, [[1, 2, 3, 4]]),
+                    new Ejemplo("ejemploTail", tail, [[1, 2, 3, 4]]),
+                    new Ejemplo("ejemploInit", init, [[1, 2, 3, 4]]),
+                    new Ejemplo("ejemploLength", length, [[1, 2, 3, 4]]),
+                    new Ejemplo("ejemploReverse", reverse, [[1, 2, 3, 4]]),
+                    new Ejemplo("ejemploFoldl", foldl, [function (ac, it) { return ac + it; }, 0, [1, 2, 3, 4]]),
+                    new Ejemplo("ejemploFoldl1", foldl1, [function (ac, it) { return ac + it; }, [1, 2, 3, 4]]),
+                    new Ejemplo("ejemploFoldr", foldr, [function (ac, it) { return ac + it; }, 0, [1, 2, 3, 4]]),
+                    new Ejemplo("ejemploFoldr1", foldr1, [function (ac, it) { return ac + it; }, [1, 2, 3, 4]]),
+                    new Ejemplo("ejemploAnd", and, [[true, false, true, true]]),
+                    new Ejemplo("ejemploOr", or, [[true, false, true, true]]),
+                    new Ejemplo("ejemploAny", any, [function (e) { return e % 2 == 0; }, [1, 2, 3, 5]]),
+                    new Ejemplo("ejemploAll", all, [function (e) { return e % 2 == 0; }, [1, 3, 5, 7]]),
+                    new Ejemplo("ejemploSum", sum, [[1, 3, 5, 7]]),
+                    new Ejemplo("ejemploProduct", product, [[1, 3, 5, 7]]),
+                    new Ejemplo("ejemploFlatten", flatten, [[[1, 2],  [3, 4], [5, 6]]]),
+                    new Ejemplo("ejemploMaximum", maximum, [[1, 2, 3, 4]]),
+                    new Ejemplo("ejemploMinimum", minimum, [[1, 2, 3, 4]]),
+                    new Ejemplo("ejemploScanl", scanl, [function (ac, it) { return ac + it; }, 0, [1, 2, 3, 4]]),
+                    new Ejemplo("ejemploScanl1", scanl1, [function (ac, it) { return ac + it; }, [1, 2, 3, 4]]),
+                    new Ejemplo("ejemploScanr", scanr, [function (ac, it) { return ac + it; }, 0, [1, 2, 3, 4]]),
+                    new Ejemplo("ejemploScanr1", scanr1, [function (ac, it) { return ac + it; }, [1, 2, 3, 4]]),
+                    new Ejemplo("ejemploRepeat", take, [10, repeat('a')]),
+                    new Ejemplo("ejemploReplicate", replicate, [10, 'a']),
+                    new Ejemplo("ejemploCycle", take, [10, cycle([1, 2, 3])]),
+                    new Ejemplo("ejemploTake", take, [10, cycle("abc")]),
+                    new Ejemplo("ejemploDrop", drop, [3, [1, 2, 3, 4, 5]]),
+                    new Ejemplo("ejemploSplitAt", splitAt, [3, [1, 2, 3, 4, 5]]),
+                    new Ejemplo("ejemploTakeWhile", takeWhile, [function (it) { return it < 4; }, [1, 2, 3, 4, 5]]),
+                    new Ejemplo("ejemploDropWhile", dropWhile, [function (it) { return it <= 2; }, [1, 2, 3, 4, 5]]),
+                    new Ejemplo("ejemploSpan", span, [function (it) { return it <= 2; }, [1, 2, 3, 4, 5]]),
+                    new Ejemplo("ejemploUnSpan", unSpan, [function (it) { return it > 2; }, [1, 2, 3, 4, 5]]),
+                    new Ejemplo("ejemploElem", elem, [0, [1, 2, 3, 4, 5]]),
+                    new Ejemplo("ejemploNotElem", notElem, [0, [1, 2, 3, 4, 5]]),
+                    new Ejemplo("ejemploZip", zip, ["abcde", [1, 2, 3]]),
+                    new Ejemplo("ejemploZipN", zipN, [[1, 2, 3], "abcd", [5, 6, 7, 8 ,9] ]),
+                    new Ejemplo("ejemploZip3", zip3, ["abcde", [1, 2, 3], "xyztu"]),
+                    new Ejemplo("ejemploZipWith", zipWith, [function (x, y) { return x + y; }, [1, 2, 3], [4, 5, 6]]),
+                    new Ejemplo("ejemploZipWith3", zipWith3, [function (x, y, z) { return x + y + z; }, [1, 2, 3], [4, 5, 6], "abcdef"]),
+                    new Ejemplo("ejemploZipWithN", zipWithN, [function (x, y, z, u) { return ((x + y) * z) + u; }, [1, 2, 3], [4, 5, 6], [7, 8, 9], "abcdef"]),
+                    new Ejemplo("ejemploZipWithN2", zipWithN2, [function (x, y, z, u) { return ((x + y) * z) + u; }, [1, 2, 3], [4, 5, 6], [7, 8, 9], "abcdef"]),
+                    new Ejemplo("ejemploUnzip", unzip, [[['a',1],['b',2],['c',3]]]),
+                    new Ejemplo("ejemploUnzip3", unzip3, [[['a',1,'x'],['b',2,'y'],['c',3,'z']]])];
+
+    var ejemplos2 =[new Ejemplo("ejemploMap2", map, [length, ["a", "bc", "def"]]),
+                    new Ejemplo("ejemploFoldl2", foldl, [function (ac) { return ac + 1; }, 0, [1, 2, 3, 4]]),
+                    new Ejemplo("ejemploFoldr12", foldr1, [function (ac, it) { return ac + it; }, "abcde"])];
+
+    map(function (obj) { obj.mostrarEjemplo(); }, ejemplos);
+    map(function (obj) { obj.mostrarEjemplo(); }, ejemplos2);
+
+    // Suite Benchmark
+    var suite = new Benchmark.Suite;
+    var datos = [];
+
+    function actualizarInformeBenchmark(texto) {
+       var seccion = document.getElementById("informeBenchmark");
+       seccion.innerHTML += "<li>" + texto + "</li>";
+    };
+
+    // Creamos los tests de la suite
+    map(function (obj) { suite.add(obj.funcion.name, function () { obj.ejecutar(); }) },
+        ejemplos);
+
+    suite.on('cycle', function(event) {
+        var bench = event.target;
+        datos.push(bench.hz / 1000);
+        actualizarInformeBenchmark(String(bench));
+    })
+    .on('complete', function() {
+        var seccionSpinner = document.getElementById("seccionSpinner");
+
+        seccionSpinner.setAttribute('style', 'display: none');
+        actualizarInformeBenchmark('El más rápido es ' + this.filter('fastest').pluck('name'));
+        // Grafo de ejecución
+        var ctx = document.getElementById("graficoBenchmark").getContext("2d");
+        var myNewChart = new Chart(ctx).Bar({ labels: foldl(function (ac, obj) {
+                                                                ac.push(obj.funcion.name);
+                                                                return ac; },
+                                                            [], ejemplos),
+                                              datasets : [ { fillColor : "rgba(220,220,220,0.5)",
+                                                             strokeColor : "rgba(220,220,220,1)",
+                                                             data : datos }]});
+
+    })
+    .run({ async: true });
+  </script>
+</body>
+</html>
