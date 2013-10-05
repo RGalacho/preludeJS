@@ -1,0 +1,194 @@
+<!doctype HTML>
+<html lang="es-ES">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>PreludeJS - Zona de pruebas</title>
+  <link href='http://fonts.googleapis.com/css?family=Orbitron:500' rel='stylesheet' type='text/css'>
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/pure-min.css">
+  <link rel="stylesheet" href="css/pure-skin-prelude.css">
+  <script type="text/javascript" src="../src/prelude.js"></script>
+  <script type="text/javascript" src="js/cie.js"></script>
+</head>
+<body onload="CIE.initPage()">
+
+  <div class="pure-g-r pure-skin-mine" id="layout">
+    <div class="pure-u" id="ayuda" style="width: 0px;">
+      <h3>Comandos internos de consola</h3>
+      <dl>
+        <dt>inspect(object)</dt>
+        <dd>Inspecciona el objeto parámetro y muestra en consola sus atributos y valores</dd>
+        <dt>withIframe(string)</dt>
+        <dd>Evalúa el fragmento de código parámetro dentro del ámbito del iFrame</dd>
+        <dt>println(string)</dt>
+        <dd>Muestra en consola el mensaje parámetro</dd>
+        <dt>clear()</dt>
+        <dd>Limpia el contenido de la consola</dd>
+      </dl>
+    </div>
+
+    <div class="pure-u" id="seccionEnlaceAyuda">
+      <a href="javascript:void(0);" onclick="mostrarAyuda()" id="enlaceAyuda"><i class="icon-question-sign"></i></a>
+    </div>
+
+    <div class="pure-u-1" id="main">
+      <div class="header">
+        <header>
+          <h1 class="especial">PreludeJS</h1>
+          <h2 class="">Zona de pruebas</h2>
+        </header>
+      </div>
+
+      <div class="content">
+        <div class="pure-form pure-form-stacked">
+          <fieldset>
+            <legend>Librerías</legend>
+
+            <div class="pure-g-r">
+              <div class="pure-u-1-4">
+                <label for="jqueryCheck" class="pure-checkbox">
+                  <input id="jqueryCheck" type="checkbox"
+                         value="jQuery" onchange="CIE.cargarLibreria('jquery')" />jQuery 1.10.2
+                </label>
+              </div>
+
+              <div class="pure-u-1-4">
+                <label for="mochikitCheck" class="pure-checkbox">
+                  <input id="mochikitCheck" type="checkbox" value="MochiKit" onchange="CIE.cargarLibreria('mochikit')" />MochiKit 1.4.2
+                </label>
+              </div>
+
+              <div class="pure-u-1-4">
+                <label for="mootoolsCheck" class="pure-checkbox">
+                  <input id="mootoolsCheck" type="checkbox" value="Mootools" onchange="CIE.cargarLibreria('mootools')" />MooTools 1.4.5
+                </label>
+              </div>
+
+              <div class="pure-u-1-4">
+                <label for="prototypeCheck" class="pure-checkbox">
+                  <input id="prototypeCheck" type="checkbox" value="Prototype" onchange="CIE.cargarLibreria('prototype')" />Prototype 1.7.1
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div id="seccionIFrame" class="pure-g-r">
+          <div class="tituloSeccion pure-u-1">
+            HTML
+          </div>
+          <div class="pure-u-1-2 pure-form">
+            <input type="submit" class="pure-button pure-button-primary"
+                   name="actualizar"
+                   value="Actualizar resultado &gt;&gt;"
+                   onclick="CIE.actualizarResultado()" />
+          </div>
+          <div class="pure-u-1-2">
+            <p class="mensaje">Resultado:</p>
+          </div>
+          <div class="pure-u-1-2 pure-form" id="seccionEdicionHtml">
+            <textarea id="textoHtml" class="pure-input-1 entradaCodigo" name="entradaCodigo" wrap="logical" rows="20">
+              <html>
+                <head></head>
+                <body>
+                  <p>Contenido de prueba para realizar tests</p>
+                  <script type="text/javascript">
+                    function foo() {
+                    alert('fooooooo');
+                    }
+                    // foo();
+                  </script>
+                </body>
+              </html>
+            </textarea>
+          </div>
+          <div class="pure-u-1-2">
+            <iframe id="vistaHtml" class="salidaResultado" name="vista" frameborder="0"></iframe>
+          </div>
+        </div>        
+
+        <div id="seccionConsola" class="pure-g-r">
+          <div class="tituloSeccion pure-u-1">Consola</div>
+          <form id="formInterprete" autocomplete="off" class="pure-form pure-u-1">
+            <div id="areaInterprete">
+              <div id="salidaInterprete">&nbsp;</div>
+            </div>
+            <div id="linea">
+              <input id="lineaInterprete" name="comando" type="text"
+                     class="pure-input-1" />
+            </div>
+            <div id="multilinea">
+              <textarea id="areaTextoInterprete" name="comando" type="text"
+                        class="pure-input-1" cols="90" rows="10"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <div class="pure-u-1">
+          <div class="pie">
+            Copyright © 2013 R. Galacho.
+            Salvajemente inspirado en
+            <a href="http://www.mochikit.com/examples/interpreter/">Interpreter</a> de
+            <a href="http://www.mochikit.com"><img src="img/mochimedia.gif" atl="MochiMedia" title="MochiMedia" /></a> y
+            <a href="http://www.w3schools.com/html/tryit.asp?filename=tryhtml_basic">Tryit Editor</a> de
+            <a href="http://www.w3schools.com/"><img src="img/w3schoolscom.gif" alt="W3Schools.com" class="w3schools-icon" title="W3Schools.com" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function mostrarAyuda() {
+          var ocultar = document.getElementById('ayuda').style.width != "0px";
+          this.estado = { ocultando: ocultar,
+                          posicionEnlace: (ocultar)? 305 : 5,
+                          anchoAyuda: (ocultar)? 300 : 0,
+                          paddingContenido: (ocultar)? 330 : 30,
+                          seccionEnlace: document.getElementById('seccionEnlaceAyuda'),
+                          seccionAyuda: document.getElementById('ayuda'),
+                          contenido: document.getElementById('layout') };
+
+          this.estado.seccionAyuda.style.overflow = "hidden";
+
+          this.animar = function () {
+              function calcularDesplazamiento(valor, max, min) {
+                return (max)? ((valor < max)? 10 : 0) :
+                              ((valor > min)? 10 : 0);
+              }
+              var self = this;
+              var est = this.estado;
+
+              if (!est.ocultando) {
+                est.posicionEnlace += calcularDesplazamiento(est.posicionEnlace, 305);
+                est.anchoAyuda += calcularDesplazamiento(est.anchoAyuda, 300);
+                est.paddingContenido += calcularDesplazamiento(est.paddingContenido, 330);
+              }
+              else {
+                est.posicionEnlace -= calcularDesplazamiento(est.posicionEnlace, null, 5);
+                est.anchoAyuda -= calcularDesplazamiento(est.anchoAyuda, null, 0);
+                est.paddingContenido -= calcularDesplazamiento(est.paddingContenido, null, 30);
+              }
+              est.seccionEnlace.style.left = est.posicionEnlace + "px";
+              est.seccionAyuda.style.width = est.anchoAyuda + "px";
+              est.contenido.style.paddingLeft = est.paddingContenido + "px";
+
+              if (!est.ocultando)
+                if (est.paddingContenido < 330)
+                  window.setTimeout(function () { self.animar(); }, 3);
+                else
+
+                  est.seccionAyuda.style.overflowY = "auto";
+              if (est.ocultando)
+                if (est.anchoAyuda > 0)
+                  window.setTimeout(function () { self.animar(); }, 3);
+                else
+                  est.seccionAyuda.style.overflowY = "auto";
+          };
+
+          this.animar();
+      }
+
+
+    </script>
+</body>
+</html>
