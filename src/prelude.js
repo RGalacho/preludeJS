@@ -111,7 +111,7 @@ function map(f, xs) {
     if (isNullOrEmpty(xs))
         return xs;
 
-    if (Array.prototype.map)
+    if (('splice' in xs) && Array.prototype.map)
         return xs.map(f);
     else {
         var result = new Array();
