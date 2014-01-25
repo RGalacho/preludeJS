@@ -502,10 +502,10 @@ function flatten(xs) {
 }
 
 /**
- * concatMap(xs) retorna vector obtenido de aplicar f a cada
- * elemento de la concatenación de la vector de vectores xs.
+ * concatMap(xs) retorna vector obtenido de concatenar el vector
+ * resultante de aplicar f a cada elemento del vector xs.
  * @example
- * concatMap([[1, 2],  [3, 4], [5, 6]]) => [1, 2, 3, 4, 5, 6]
+ * concatMap(function (e) { return e + "! "; }, ["Hey", "Ho", "Let's go"]) == "Hey! Ho! Let's go! "
  *
  * @param {Array} xs Vector
  * @return {Array} El vector xs aplanado
@@ -513,7 +513,7 @@ function flatten(xs) {
  * @since 0.1
  */
 function concatMap(f, xs) {
-    return map(f, flatten(xs));
+    return flatten(map(f, xs));
 }
 
 /**
