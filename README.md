@@ -1,3 +1,4 @@
+
 PreludeJS
 =========
 
@@ -19,9 +20,9 @@ navegadores. Hasta ahora se ha testeado en *Google Chrome Versión
 27.0.1453.47 beta* ( *Linux* ), *Internet Explorer 7*, *Internet
 Explorer 8*, *Firefox 23.1* ( *Windows* ).
 
+Para consultar la documentación pulsa [este enlace](http://rgalacho.github.io/preludeJS/)
 ---
 
 ### Utilización
 Para utilizarla, tan sólo es necesario incluir un elemento *script* en
 aquella/s página/s *HTML* en la que queramos disponer de la misma.
-
