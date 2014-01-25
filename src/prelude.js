@@ -17,9 +17,9 @@
 /**
  * Datos de la librería.
  *
- * version: Versión actual
+ * version: 0.2
  * 
- * autor: Un poco de auto-reconocimiento...
+ * autor: R. Galacho
  *
  * cuasiInfinito: Constante de simulación de vectores infinitos.
  *                No es posible simular la evaluación perezosa pero sí
