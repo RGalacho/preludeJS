@@ -21,6 +21,7 @@ navegadores. Hasta ahora se ha testeado en *Google Chrome Versión
 Explorer 8*, *Firefox 23.1* ( *Windows* ).
 
 Para consultar la documentación pulsa [este enlace](http://rgalacho.github.io/preludeJS/)
+
 ---
 
 ### Utilización
